@@ -142,3 +142,17 @@ flan-t5-base-cpu:
 	MAX_INPUT_LENGTH=2048 \
 	MAX_BATCH_SIZE=32 \
 	gunicorn -t 0 -w 1 -b 127.0.0.1:5000 inference_server.server:app --access-logfile - --access-logformat '%(h)s %(t)s "%(r)s" %(s)s %(b)s'
+
+# ------------------------- Bloomchat HF GPU -------------------------
+bloom-176b-int8:
+	make ui
+
+	TOKENIZERS_PARALLELISM=false \
+	MODEL_NAME=sambanovasystems/BLOOMChat-176B-v \
+	MODEL_CLASS=AutoModelForCausalLM \
+	DEPLOYMENT_FRAMEWORK=hf_accelerate \
+	DTYPE=int8 \
+	MAX_INPUT_LENGTH=2048 \
+	MAX_BATCH_SIZE=4 \
+	CUDA_VISIBLE_DEVICES=0,1,2,3 \
+	gunicorn -t 0 -w 1 -b 127.0.0.1:5000 inference_server.server:app --access-logfile - --access-logformat '%(h)s %(t)s "%(r)s" %(s)s %(b)s'

@@ -1,4 +1,5 @@
 from argparse import Namespace
+from accelerate.utils.modeling import get_max_memory
 
 import torch
 
@@ -11,6 +12,11 @@ class HFAccelerateModel(Model):
         super().__init__(args)
 
         kwargs = {"pretrained_model_name_or_path": args.model_name, "device_map": "auto"}
+        original_max_memory_dict = get_max_memory()
+
+        reduce_max_memory_dict = {device_key: int(original_max_memory_dict[device_key] * 0.85) for device_key in original_max_memory_dict}
+
+        kwargs["max_memory"] = reduce_max_memory_dict
 
         if get_world_size() > 1:
             kwargs["device_map"] = "balanced_low_0"

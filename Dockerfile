@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.1-devel-ubi8 as base
+FROM nvidia/cuda:12.1.1-devel-ubi8 as base
 
 RUN dnf install -y --disableplugin=subscription-manager make git && dnf clean all --disableplugin=subscription-manager
 
@@ -26,18 +26,19 @@ RUN conda install -c anaconda cmake -y
 
 # necessary stuff
 RUN pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116 \
-    transformers==4.26.1 \
-    deepspeed==0.7.6 \
-    accelerate==0.16.0 \
-    gunicorn==20.1.0 \
+    transformers==4.27.0 \
+    deepspeed>=0.7.3 \
+    deepspeed-mii==0.0.2 \
+    accelerate \
+    gunicorn \
     flask \
     flask_api \
-    fastapi==0.89.1 \
-    uvicorn==0.19.0 \
+    fastapi \
+    uvicorn \
     jinja2==3.1.2 \
-    pydantic==1.10.2 \
-    huggingface_hub==0.12.1 \
-	grpcio-tools==1.50.0 \
+    pydantic \
+    huggingface_hub>=0.9.0 \
+        grpcio-tools==1.50.0 \
     --no-cache-dir
 
 # clean conda env
@@ -60,8 +61,8 @@ ENV PORT=5000 \
 EXPOSE ${PORT}
 EXPOSE ${UI_PORT}
 
-CMD git clone https://github.com/huggingface/transformers-bloom-inference.git && \
+CMD git clone https://github.com/jitingxu1/transformers-bloom-inference.git && \
     cd transformers-bloom-inference && \
     # install grpc and compile protos
     make gen-proto && \
-    make bloom-560m
+    make bloomchat-176b-int
