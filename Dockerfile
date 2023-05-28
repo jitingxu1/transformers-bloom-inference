@@ -26,7 +26,7 @@ RUN conda install -c anaconda cmake -y
 
 # necessary stuff
 RUN pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116 \
-    transformers==4.27.0 \
+    transformers \
     deepspeed>=0.7.3 \
     deepspeed-mii==0.0.2 \
     accelerate \

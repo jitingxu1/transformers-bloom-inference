@@ -144,7 +144,7 @@ flan-t5-base-cpu:
 	gunicorn -t 0 -w 1 -b 127.0.0.1:5000 inference_server.server:app --access-logfile - --access-logformat '%(h)s %(t)s "%(r)s" %(s)s %(b)s'
 
 # ------------------------- Bloomchat HF GPU -------------------------
-bloom-176b-int8:
+bloomchat-176b-int:
 	make ui
 
 	TOKENIZERS_PARALLELISM=false \
