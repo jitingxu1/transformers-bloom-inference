@@ -1,6 +1,6 @@
 import os
 from functools import partial
-
+import logging
 from flask import Flask, request
 from flask_api import status
 from pydantic import BaseModel
@@ -39,9 +39,14 @@ class Args:
         self.debug = parse_bool(os.getenv("DEBUG", "false"))
 
 
+# Configure logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 # ------------------------------------------------------
+app.logger.info('Hello, logging!')
 args = Args()
+app.logger.info('Hello, args!')
 model = ModelDeployment(args, True)
+app.logger.info('Hello, loaded model')
 query_ids = QueryID()
 app = Flask(__name__)
 # ------------------------------------------------------
@@ -76,6 +81,7 @@ def generate():
     try:
         x = request.get_json()
         x = GenerateRequest(**x)
+        app.logger.info('Hello, parse request!')
 
         x.max_new_tokens = get_num_tokens_to_generate(x.max_new_tokens, args.allowed_max_new_tokens)
 

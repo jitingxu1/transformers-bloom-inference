@@ -11,7 +11,7 @@ gen-proto:
 	rm -rf inference_server/model_handler/grpc_utils/pb/*.py-e
 
 ui:
-	python -m ui --ui_host 127.0.0.1 --ui_port 5001 --generation_backend_host 127.0.0.1 --generation_backend_port 5000 &
+	python -m ui --ui_host 127.0.0.1 --ui_port 22 --generation_backend_host 127.0.0.1 --generation_backend_port 22 --debug &
 
 # ------------------------- DS inference -------------------------
 bloom-176b:
@@ -155,4 +155,4 @@ bloomchat-176b-int:
 	MAX_INPUT_LENGTH=2048 \
 	MAX_BATCH_SIZE=4 \
 	CUDA_VISIBLE_DEVICES=0,1,2,3 \
-	gunicorn -t 0 -w 1 -b 127.0.0.1:5000 inference_server.server:app --access-logfile - --access-logformat '%(h)s %(t)s "%(r)s" %(s)s %(b)s'
+	gunicorn -t 0 -w 1 -b 127.0.0.1:80 --log-level debug inference_server.server:app --access-logfile - --access-logformat '%(h)s %(t)s "%(r)s" %(s)s %(b)s'

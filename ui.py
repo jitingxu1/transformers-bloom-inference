@@ -34,7 +34,7 @@ class Server:
         self.generation_backend_port = args.generation_backend_port
         self.workers = 1
 
-        self.tokenizer = AutoTokenizer.from_pretrained("bigscience/bloom")
+        self.tokenizer = AutoTokenizer.from_pretrained("sambanovasystems/BLOOMChat-176B-v")
 
         self.app = FastAPI(
             routes=[

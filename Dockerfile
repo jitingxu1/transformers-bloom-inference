@@ -28,7 +28,7 @@ RUN conda install -c anaconda cmake -y
 RUN pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116 \
     transformers==4.27.0 \
     deepspeed>=0.7.3 \
-    deepspeed-mii==0.0.2 \
+    deepspeed-mii \
     accelerate \
     gunicorn \
     flask \
@@ -56,8 +56,8 @@ RUN chmod -R g+w /src
 RUN mkdir /.cache && \
     chmod -R g+w /.cache
 
-ENV PORT=5000 \
-    UI_PORT=5001
+ENV PORT=80 \
+    UI_PORT=22
 EXPOSE ${PORT}
 EXPOSE ${UI_PORT}
 
