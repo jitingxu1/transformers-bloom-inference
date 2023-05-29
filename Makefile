@@ -148,7 +148,7 @@ bloomchat-176b-int:
 	make ui
 
 	TOKENIZERS_PARALLELISM=false \
-	MODEL_NAME=sambanovasystems/BLOOMChat-176B-v \
+	MODEL_NAME=sambanovasystems/BLOOMChat-176B-v1 \
 	MODEL_CLASS=AutoModelForCausalLM \
 	DEPLOYMENT_FRAMEWORK=hf_accelerate \
 	DTYPE=int8 \
