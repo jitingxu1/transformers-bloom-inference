@@ -42,13 +42,14 @@ class Args:
 # Configure logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 # ------------------------------------------------------
+app = Flask(__name__)
 app.logger.info('Hello, logging!')
 args = Args()
 app.logger.info('Hello, args!')
 model = ModelDeployment(args, True)
 app.logger.info('Hello, loaded model')
 query_ids = QueryID()
-app = Flask(__name__)
+# app = Flask(__name__)
 # ------------------------------------------------------
 
 
