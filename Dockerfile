@@ -31,6 +31,7 @@ RUN pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.o
     deepspeed-mii \
     accelerate \
     gunicorn \
+    bitsandbytes \
     flask \
     flask_api \
     fastapi \
