@@ -155,4 +155,5 @@ bloomchat-176b-int:
 	MAX_INPUT_LENGTH=2048 \
 	MAX_BATCH_SIZE=4 \
 	CUDA_VISIBLE_DEVICES=0,1,2,3 \
+	DEBUG=true \
 	gunicorn -t 0 -w 1 -b 127.0.0.1:80 --log-level debug inference_server.server:app --access-logfile - --access-logformat '%(h)s %(t)s "%(r)s" %(s)s %(b)s'
