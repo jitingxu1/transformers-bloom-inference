@@ -1,6 +1,7 @@
 import argparse
 
 import requests
+import logging
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -33,6 +34,7 @@ class Server:
         self.generation_backend_host = args.generation_backend_host
         self.generation_backend_port = args.generation_backend_port
         self.workers = 1
+        logging.debug("down load model for ui")
 
         self.tokenizer = AutoTokenizer.from_pretrained("sambanovasystems/BLOOMChat-176B-v1")
 
@@ -76,4 +78,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # Configure logging
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     main()
